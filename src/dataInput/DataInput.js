@@ -250,7 +250,11 @@ const DataInputPage = () => {
       </Slide>
       <div className="DataInput-footer">
         <Button onClick={() => navigate("/")}>Cancel</Button>
-        <Button colorScheme="teal" onClick={handleSubmit}>
+        <Button
+          colorScheme="teal"
+          onClick={handleSubmit}
+          isDisabled={isAddingTeams || isAddingMatches}
+        >
           {isTeams
             ? isAddingTeams
               ? "Adding teams..."

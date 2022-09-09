@@ -64,7 +64,7 @@ const ClearDataModal = ({ isOpen, setOpen }) => {
           <Button onClick={() => setOpen(false)}>Cancel</Button>
           <Button
             colorScheme="red"
-            isDisabled={inputText !== CONFIRMATION_TEXT}
+            isDisabled={inputText !== CONFIRMATION_TEXT || isLoading}
             onClick={clearData}
           >
             {isLoading ? "Deleting..." : "Delete"}
