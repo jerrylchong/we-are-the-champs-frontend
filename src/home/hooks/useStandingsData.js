@@ -7,9 +7,8 @@ const useStandingsData = () => {
 
   return useQuery(["standings"], getStandings, {
     onError: (error) => {
-      console.log(error);
       toast({
-        title: error,
+        title: error.toString(),
         status: "error",
         isClosable: true,
       });

@@ -9,7 +9,6 @@ const useTeamsData = () => {
 
   return useQuery(["teams"], getTeams, {
     onError: (error) => {
-      console.log(error);
       navigate("/");
       toast({
         title: "Something went wrong, please try again",

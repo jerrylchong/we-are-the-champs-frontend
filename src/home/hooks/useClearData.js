@@ -8,9 +8,8 @@ const useClearData = () => {
 
   return useMutation(clearData, {
     onError: (error) => {
-      console.log("useClearData error", error);
       toast({
-        title: "Error",
+        title: error.toString(),
         status: "error",
         isClosable: true,
       });

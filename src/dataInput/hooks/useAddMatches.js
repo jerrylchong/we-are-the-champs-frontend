@@ -8,9 +8,8 @@ const useAddMatches = () => {
 
   return useMutation(addMatches, {
     onError: (error) => {
-      console.log("addMatches error", error);
       toast({
-        title: "Error",
+        title: error.toString(),
         status: "error",
         isClosable: true,
       });

@@ -8,9 +8,8 @@ const useAddTeams = () => {
 
   return useMutation(addTeams, {
     onError: (error) => {
-      console.log("addTeams error", error);
       toast({
-        title: "Error",
+        title: error.toString(),
         status: "error",
         isClosable: true,
       });

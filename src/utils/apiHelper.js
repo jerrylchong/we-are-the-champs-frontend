@@ -4,9 +4,10 @@ const HEADERS = {
   "Content-type": "application/json",
 };
 
-const parseResp = (res) => {
+const parseResp = async (res) => {
   if (!res.ok) {
-    throw new Error(res.text());
+    const data = await res.text();
+    throw new Error(data);
   }
   return res.json();
 };
