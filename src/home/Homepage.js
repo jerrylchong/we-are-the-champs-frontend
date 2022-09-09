@@ -1,4 +1,4 @@
-import { Button, Heading } from "@chakra-ui/react";
+import { Button, Heading, Square } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../common/Loader";
@@ -44,6 +44,12 @@ const Homepage = () => {
                 <StandingsTable teams={g.teams} />
               </div>
             ))}
+          </div>
+          <div className="Homepage-group-legends">
+            <Square bgColor="teal.300" size="10px" marginBottom="4px" />
+            Qualified
+            <Square bgColor="gray.300" size="10px" marginBottom="4px" />
+            Failed to qualify
           </div>
           <ClearDataModal isOpen={isClearDataOpen} setOpen={setClearDataOpen} />
         </>

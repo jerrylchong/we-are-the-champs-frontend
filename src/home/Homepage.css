@@ -8,18 +8,26 @@
   position: relative;
 }
 
-.Homepage-clear-btn-row {
+.Homepage .Homepage-clear-btn-row {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   position: absolute;
   top: 5%;
   right: 15%;
+  gap: 1rem;
 }
 
-.Homepage-group-standings {
+.Homepage .Homepage-group-standings {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.Homepage .Homepage-group-legends {
+  display: inline-flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 5%;
 }
