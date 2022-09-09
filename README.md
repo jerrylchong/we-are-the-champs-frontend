@@ -2,6 +2,11 @@
 
 ## Steps to run
 
+### Prerequisites
+Node.js >= 18
+
+It is recommended to setup the backend before this.
+
 ### 1. Clone this repository
 Clone this repository to your local directory and change your working directory to the repository folder.
 ```
