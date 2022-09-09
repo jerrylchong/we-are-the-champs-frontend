@@ -1,14 +1,14 @@
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { clearData } from "../../utils/api";
+import { addMatches } from "../../utils/api";
 
-const useClearData = () => {
+const useAddMatches = () => {
   const queryClient = useQueryClient();
   const toast = useToast();
 
-  return useMutation(clearData, {
+  return useMutation(addMatches, {
     onError: (error) => {
-      console.log("useClearData error", error);
+      console.log("addMatches error", error);
       toast({
         title: "Error",
         status: "error",
@@ -16,10 +16,9 @@ const useClearData = () => {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries(["teams"]);
       queryClient.invalidateQueries(["standings"]);
       toast({
-        title: "All data has been cleared",
+        title: "Matches have been added",
         status: "success",
         isClosable: true,
       });
@@ -27,4 +26,4 @@ const useClearData = () => {
   });
 };
 
-export default useClearData;
+export default useAddMatches;

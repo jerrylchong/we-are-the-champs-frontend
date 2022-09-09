@@ -18,6 +18,7 @@ import {
   NUMBER_OF_MATCHES,
   NUMBER_OF_TEAMS_PER_GROUP,
 } from "../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const dayjs = require("dayjs");
 const customParseFormat = require("dayjs/plugin/customParseFormat");
@@ -79,6 +80,8 @@ const formatTeams = (arr) => {
 };
 
 const DataInputPage = () => {
+  const navigate = useNavigate();
+
   const { data: teamsData } = useTeamsData();
   const teams = useMemo(() => teamsData || [], [teamsData]);
   const [isTeams, setIsTeams] = useState(teams.length === 0);
@@ -165,7 +168,7 @@ const DataInputPage = () => {
         </FormControl>
       </Slide>
       <div className="DataInput-footer">
-        <Button>Cancel</Button>
+        <Button onClick={() => navigate("/")}>Cancel</Button>
         <Button colorScheme="teal" onClick={handleSubmit}>
           {isTeams
             ? isAddingTeams

@@ -6,7 +6,6 @@ const HEADERS = {
 
 const parseResp = (res) => {
   if (!res.ok) {
-    console.log(res.text());
     throw new Error(res.text());
   }
   return res.json();
