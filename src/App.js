@@ -1,3 +1,4 @@
+import { Heading } from "@chakra-ui/react";
 import React, { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -10,7 +11,9 @@ const DataInputPage = React.lazy(() => import("./dataInput/DataInput"));
 function App() {
   return (
     <div className="App">
-      <header className="App-header">We are the champions</header>
+      <Heading className="App-header" fontSize="3xl">
+        We are the champions
+      </Heading>
       <div className="App-content">
         <Suspense fallback={<Loader />}>
           <Routes>

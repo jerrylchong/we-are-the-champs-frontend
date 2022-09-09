@@ -17,8 +17,12 @@ const Empty = () => {
         opacity={0.5}
         filter="grayscale(100%)"
       />
-      <Text>No teams were found</Text>
-      <Button className="Home-empty-btn" onClick={() => navigate("/add")}>
+      <Text>No teams have been added yet</Text>
+      <Button
+        className="Home-empty-btn"
+        colorScheme="teal"
+        onClick={() => navigate("/add")}
+      >
         Add teams
       </Button>
     </div>
