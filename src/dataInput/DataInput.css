@@ -1,0 +1,46 @@
+.DataInput-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+}
+
+.DataInput-container .DataInput-page-indicator {
+  display: flex;
+  align-items: center;
+  text-align: bottom;
+  padding: 0.5rem;
+  gap: 0.5rem;
+}
+
+.DataInput-container .DataInput-textarea-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.DataInput-container .DataInput-textarea-wrapper .DataInput-textarea-control {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.DataInput-container
+  .DataInput-textarea-wrapper
+  .DataInput-textarea-control
+  .DataInput-textarea {
+  width: 50%;
+}
+
+.DataInput-container .DataInput-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}

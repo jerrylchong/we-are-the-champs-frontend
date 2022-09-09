@@ -5,6 +5,7 @@ import "./App.css";
 import Loader from "./common/Loader";
 
 const Homepage = React.lazy(() => import("./home/Homepage"));
+const DataInputPage = React.lazy(() => import("./dataInput/DataInput"));
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Suspense fallback={<Loader />}>
           <Routes>
             <Route path="/" element={<Homepage />} />
+            <Route path="/add" element={<DataInputPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
