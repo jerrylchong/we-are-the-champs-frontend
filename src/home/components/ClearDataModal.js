@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -13,12 +13,21 @@ import {
   FormControl,
   FormErrorMessage,
 } from "@chakra-ui/react";
+import useClearData from "../hooks/useClearData";
 
 const CONFIRMATION_TEXT = "We are the champions";
 
 const ClearDataModal = ({ isOpen, setOpen }) => {
   const [inputTouched, setInputTouched] = useState(false);
   const [inputText, setInputText] = useState("");
+
+  const { mutate: clearData, isLoading, isSuccess } = useClearData();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setOpen(false);
+    }
+  }, [isSuccess, setOpen]);
 
   return (
     <Modal isOpen={isOpen} onClose={() => setOpen(false)}>
@@ -56,8 +65,9 @@ const ClearDataModal = ({ isOpen, setOpen }) => {
           <Button
             colorScheme="red"
             isDisabled={inputText !== CONFIRMATION_TEXT}
+            onClick={clearData}
           >
-            Delete
+            {isLoading ? "Deleting..." : "Delete"}
           </Button>
         </ModalFooter>
       </ModalContent>
