@@ -122,8 +122,8 @@ const formatMatches = (arr) => {
     matches.push({
       team1: data[0],
       team2: data[1],
-      team1Goals: data[2],
-      team2Goals: data[3],
+      team1Goals: parseInt(data[2]),
+      team2Goals: parseInt(data[3]),
     });
   }
 
