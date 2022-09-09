@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Button,
   FormControl,
@@ -19,6 +19,7 @@ import {
   NUMBER_OF_TEAMS_PER_GROUP,
 } from "../utils/constants";
 import { useNavigate } from "react-router-dom";
+import useAddMatches from "./hooks/useAddMatches";
 
 const dayjs = require("dayjs");
 const customParseFormat = require("dayjs/plugin/customParseFormat");
@@ -39,7 +40,7 @@ const isTeamFormatValid = (info) => {
   }
 
   // check if group number is an integer
-  if (!parseInt(data[2])) {
+  if (parseInt(data[2]) === null) {
     return false;
   }
 
@@ -79,6 +80,56 @@ const formatTeams = (arr) => {
   return teams;
 };
 
+const isMatchFormatValid = (info) => {
+  const data = info.split(" ");
+  if (data.length !== 4) {
+    console.log(info, data);
+    return false;
+  }
+
+  // check if number of goals is an integer
+  if (parseInt(data[2]) === null) {
+    console.log(data[2]);
+    return false;
+  }
+
+  if (parseInt(data[3]) === null) {
+    console.log(data[3]);
+    return false;
+  }
+
+  return true;
+};
+
+const isMatchFieldValid = (arr) => {
+  if (arr.length !== NUMBER_OF_MATCHES) {
+    return `There should only be ${NUMBER_OF_MATCHES} matches`;
+  }
+
+  for (const match of arr) {
+    console.log(match);
+    if (!isMatchFormatValid(match)) {
+      return "Incorrect match information format";
+    }
+  }
+  return "";
+};
+
+const formatMatches = (arr) => {
+  const matches = [];
+  for (const matchInfo of arr) {
+    const data = matchInfo.split(" ");
+    matches.push({
+      team1: data[0],
+      team2: data[1],
+      team1Goals: data[2],
+      team2Goals: data[3],
+    });
+  }
+
+  return matches;
+};
+
 const DataInputPage = () => {
   const navigate = useNavigate();
 
@@ -86,7 +137,12 @@ const DataInputPage = () => {
   const teams = useMemo(() => teamsData || [], [teamsData]);
   const [isTeams, setIsTeams] = useState(teams.length === 0);
 
+  useEffect(() => {
+    setIsTeams(teams.length === 0);
+  }, [teams]);
+
   const [teamsField, setTeams] = useState("");
+  const [matchesField, setMatches] = useState("");
 
   const [errors, setErrors] = useState(null);
 
@@ -95,6 +151,11 @@ const DataInputPage = () => {
     isLoading: isAddingTeams,
     isSuccess: isAddTeamsSuccess,
   } = useAddTeams();
+  const {
+    mutate: addMatches,
+    isLoading: isAddingMatches,
+    isSuccess: isAddMatchesSuccess,
+  } = useAddMatches();
 
   useEffect(() => {
     if (isAddTeamsSuccess) {
@@ -102,7 +163,13 @@ const DataInputPage = () => {
     }
   }, [isAddTeamsSuccess]);
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    if (isAddMatchesSuccess) {
+      navigate("/");
+    }
+  }, [isAddMatchesSuccess, navigate]);
+
+  const handleSubmit = useCallback(() => {
     if (isTeams) {
       const teamInfoArray = teamsField.split(/\r?\n/);
       const msg = isTeamFieldValid(teamInfoArray);
@@ -111,8 +178,16 @@ const DataInputPage = () => {
         // if there is no message, then validation passed
         addTeams(formatTeams(teamInfoArray));
       }
+    } else {
+      const matchInfoArray = matchesField.split(/\r?\n/);
+      const msg = isMatchFieldValid(matchInfoArray);
+      setErrors({ matches: msg });
+      if (!msg) {
+        // if there is no message, then validation passed
+        addMatches(formatMatches(matchInfoArray));
+      }
     }
-  };
+  }, [addMatches, addTeams, isTeams, matchesField, teamsField]);
 
   return (
     <div className="DataInput-container">
@@ -152,7 +227,10 @@ const DataInputPage = () => {
         direction="right"
         in={!isTeams}
       >
-        <FormControl className="DataInput-textarea-control">
+        <FormControl
+          className="DataInput-textarea-control"
+          isInvalid={errors && errors.matches}
+        >
           <FormHelperText>
             Please enter the match information in the following format:
           </FormHelperText>
@@ -163,8 +241,11 @@ const DataInputPage = () => {
             Leave a line for each match. Each team must play a match against
             every other team in their group.
           </FormHelperText>
-          <Textarea className="DataInput-textarea" />
-          <FormErrorMessage>Error</FormErrorMessage>
+          <Textarea
+            className="DataInput-textarea"
+            onChange={(e) => setMatches(e.target.value)}
+          />
+          <FormErrorMessage>{errors && errors.matches}</FormErrorMessage>
         </FormControl>
       </Slide>
       <div className="DataInput-footer">
@@ -172,8 +253,10 @@ const DataInputPage = () => {
         <Button colorScheme="teal" onClick={handleSubmit}>
           {isTeams
             ? isAddingTeams
-              ? "Adding teams"
+              ? "Adding teams..."
               : "Add teams"
+            : isAddingMatches
+            ? "Adding matches..."
             : "Add matches"}
         </Button>
       </div>
