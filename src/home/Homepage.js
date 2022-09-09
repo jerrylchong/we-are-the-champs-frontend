@@ -1,5 +1,6 @@
 import { Button, Heading } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
+import ClearDataModal from "./components/ClearDataModal";
 import Empty from "./components/Empty";
 import StandingsTable from "./components/StandingsTable";
 import "./Homepage.css";
@@ -178,12 +179,16 @@ const Homepage = () => {
     },
   ];
 
+  const [isClearDataOpen, setClearDataOpen] = useState(false);
+
   return (
     <div className="Homepage">
       {records.length > 0 ? (
         <>
           <span className="Homepage-clear-btn-row">
-            <Button colorScheme="red">Clear data</Button>
+            <Button colorScheme="red" onClick={() => setClearDataOpen(true)}>
+              Clear data
+            </Button>
           </span>
           <div className="Homepage-group-standings">
             {records.map((g) => (
@@ -195,6 +200,7 @@ const Homepage = () => {
               </div>
             ))}
           </div>
+          <ClearDataModal isOpen={isClearDataOpen} setOpen={setClearDataOpen} />
         </>
       ) : (
         <Empty />
