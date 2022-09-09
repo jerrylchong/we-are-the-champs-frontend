@@ -1,0 +1,25 @@
+.Homepage {
+  width: 100%;
+  padding: 0 15%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.Homepage-clear-btn-row {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  position: absolute;
+  top: 5%;
+  right: 15%;
+}
+
+.Homepage-group-standings {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
