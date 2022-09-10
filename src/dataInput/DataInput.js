@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Button,
+  Circle,
   FormControl,
   FormErrorMessage,
   FormHelperText,
@@ -8,7 +9,6 @@ import {
   Text,
   Textarea,
 } from "@chakra-ui/react";
-import { ChevronRightIcon } from "@chakra-ui/icons";
 
 import "./DataInput.css";
 import useTeamsData from "./hooks/useTeamsData";
@@ -192,9 +192,30 @@ const DataInputPage = () => {
   return (
     <div className="DataInput-container">
       <div className="DataInput-page-indicator">
-        <Text textColor={!isTeams && "blackAlpha.500"}>Add teams</Text>
-        <ChevronRightIcon />
-        <Text textColor={isTeams && "blackAlpha.500"}>Add matches</Text>
+        <Text
+          className="DataInput-indicator-text"
+          textColor={!isTeams ? "blackAlpha.500" : "teal.500"}
+          fontSize="xl"
+        >
+          <Circle
+            bgColor={!isTeams ? "blackAlpha.500" : "teal.400"}
+            size="10px"
+            marginBottom="4px"
+          />
+          Add teams
+        </Text>
+        <Text
+          className="DataInput-indicator-text"
+          textColor={isTeams && "blackAlpha.500"}
+          fontSize="xl"
+        >
+          <Circle
+            bgColor={isTeams ? "blackAlpha.500" : "teal.400"}
+            size="10px"
+            marginBottom="4px"
+          />
+          Add matches
+        </Text>
       </div>
       <Slide
         className="DataInput-textarea-wrapper"
@@ -218,6 +239,7 @@ const DataInputPage = () => {
           <Textarea
             className="DataInput-textarea"
             onChange={(e) => setTeams(e.target.value)}
+            resize={false}
           />
           <FormErrorMessage>{errors && errors.teams}</FormErrorMessage>
         </FormControl>

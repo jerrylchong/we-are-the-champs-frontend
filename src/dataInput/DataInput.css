@@ -3,6 +3,7 @@
   flex-direction: column;
   width: 100%;
   position: relative;
+  padding: 0 5% 0 25%;
 }
 
 .DataInput-container .DataInput-page-indicator {
@@ -10,7 +11,14 @@
   align-items: center;
   text-align: bottom;
   padding: 0.5rem;
+  gap: 3rem;
+  margin-top: 2.5%;
+}
+
+.DataInput-container .DataInput-page-indicator .DataInput-indicator-text {
+  display: flex;
   gap: 0.5rem;
+  align-items: center;
 }
 
 .DataInput-container .DataInput-textarea-wrapper {
@@ -34,13 +42,15 @@
   .DataInput-textarea-control
   .DataInput-textarea {
   width: 50%;
+  height: 25%;
 }
 
 .DataInput-container .DataInput-footer {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 70%;
   padding: 1rem;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 1rem;
 }
