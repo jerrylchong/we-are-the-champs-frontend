@@ -28,7 +28,7 @@ yarn add
 ```
 
 ### 3. Run the app
-Ensure port `3000' on your localhost is not being used. Then use npm or yarn to start the application.
+Ensure port `3000` on your localhost is not being used. Then use npm or yarn to start the application.
 
 Using npm:
 ```
